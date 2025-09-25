@@ -7,7 +7,7 @@ pub mod utils;
 
 use crate::instructions::*;
 
-declare_id!("8PRQvPo16yG8EP5fESDEuJunZBLJ3UFBGvN6CKLZGBUQ");
+declare_id!("AAYjFNamuQFq2KhBLHDeHuLWkwA3JtwD1fiibPc8sFzR");
 
 pub const TOKEN_ID: Pubkey = pubkey!("BzeqmCjLZvMLSTrge9qZnyV8N2zNKBwAxQcZH2XEzFXG");
 

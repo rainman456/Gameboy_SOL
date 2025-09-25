@@ -4,18 +4,17 @@
 resolution = true
 skip-lint = false
 
-[programs.localnet]
-wager_program = "8PRQvPo16yG8EP5fESDEuJunZBLJ3UFBGvN6CKLZGBUQ"
 
-[programs.devnet]
-wager_program = "8PRQvPo16yG8EP5fESDEuJunZBLJ3UFBGvN6CKLZGBUQ"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "devnet"
+cluster = "localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
-test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/index.ts"
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+[workspace.dependencies]
+proc-macro2 = "=1.0.94"
