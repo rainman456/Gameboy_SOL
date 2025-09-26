@@ -1,8 +1,9 @@
+// tests/F6-accounts-validation.ts
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { WagerProgram } from "../target/types/wager_program";
 import { PublicKey, Keypair, SystemProgram } from "@solana/web3.js";
-import { createMint, createAssociatedTokenAccount, mintTo } from "@solana/spl-token";
+import { createMint, createAssociatedTokenAccount, mintTo, getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { expect } from "chai";
 import { TOKEN_ID } from "../target/types/wager_program";
 
@@ -38,18 +39,9 @@ describe("F6: Insufficient Remaining Accounts", () => {
     await mintTo(provider.connection, provider.wallet.payer, mint, player2Token, provider.wallet.publicKey, 1000000);
     
     [gameSessionPda] = await PublicKey.findProgramAddress([Buffer.from("game_session"), Buffer.from(sessionId)], program.programId);
-  [vaultPda] = await PublicKey.findProgramAddress([Buffer.from("vault"), Buffer.from(sessionId)], program.programId);
-  vaultToken = await createAssociatedTokenAccount(
-    provider.connection,
-    provider.wallet.payer,
-    mint,
-    vaultPda,
-    false,  // confirm
-    undefined,
-    undefined,
-    true    // allowOwnerOffCurve
-  );
-});
+    [vaultPda] = await PublicKey.findProgramAddress([Buffer.from("vault"), Buffer.from(sessionId)], program.programId);
+    vaultToken = getAssociatedTokenAddressSync(mint, vaultPda, true);
+  });
 
   it("Crashes distribution with insufficient accounts", async () => {
     // Create and join as F1
@@ -66,7 +58,7 @@ describe("F6: Insufficient Remaining Accounts", () => {
         rent: anchor.web3.SYSVAR_RENT_PUBKEY,
       })
       .signers([gameServer])
-      .rpc();
+      .rpc({ skipPreflight: true });
 
     await program.methods.joinUser(sessionId, 0)
       .accounts({

@@ -1,8 +1,9 @@
+// tests/F3-overflow.ts
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { WagerProgram } from "../target/types/wager_program";
 import { PublicKey, Keypair, SystemProgram } from "@solana/web3.js";
-import { createMint, createAssociatedTokenAccount, mintTo } from "@solana/spl-token";
+import { createMint, createAssociatedTokenAccount, mintTo, getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { expect } from "chai";
 import { TOKEN_ID } from "../target/types/wager_program";
 
@@ -38,18 +39,9 @@ describe("F3: Overflow in Kills/Spawns", () => {
     await mintTo(provider.connection, provider.wallet.payer, mint, player2Token, provider.wallet.publicKey, 1000000);
     
     [gameSessionPda] = await PublicKey.findProgramAddress([Buffer.from("game_session"), Buffer.from(sessionId)], program.programId);
-  [vaultPda] = await PublicKey.findProgramAddress([Buffer.from("vault"), Buffer.from(sessionId)], program.programId);
-  vaultToken = await createAssociatedTokenAccount(
-    provider.connection,
-    provider.wallet.payer,
-    mint,
-    vaultPda,
-    false,  // confirm
-    undefined,
-    undefined,
-    true    // allowOwnerOffCurve
-  );
-});
+    [vaultPda] = await PublicKey.findProgramAddress([Buffer.from("vault"), Buffer.from(sessionId)], program.programId);
+    vaultToken = getAssociatedTokenAddressSync(mint, vaultPda, true);
+  });
 
   it("Reproduces spawns overflow and incorrect earnings", async () => {
     await program.methods.createGameSession(sessionId, new anchor.BN(1000), { payToSpawnOneVsOne: {} })
@@ -65,7 +57,7 @@ describe("F3: Overflow in Kills/Spawns", () => {
         rent: anchor.web3.SYSVAR_RENT_PUBKEY,
       })
       .signers([gameServer])
-      .rpc();
+      .rpc({ skipPreflight: true });
 
     await program.methods.joinUser(sessionId, 0).accounts({
       user: player1.publicKey,
