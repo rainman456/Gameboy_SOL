@@ -7,9 +7,9 @@ pub mod utils;
 
 use crate::instructions::*;
 
-declare_id!("AAYjFNamuQFq2KhBLHDeHuLWkwA3JtwD1fiibPc8sFzR");
+declare_id!("8v8JYGZEkBJ2iRh7uZwPEeLXuP4jx35UpToPhDcRg29P");
 
-pub const TOKEN_ID: Pubkey = pubkey!("BzeqmCjLZvMLSTrge9qZnyV8N2zNKBwAxQcZH2XEzFXG");
+pub const TOKEN_ID: Pubkey = pubkey!("FptS4mzXxtDB8QajT65P688EgMx2BsbWSQo1r7Vxia8j");
 
 #[program]
 pub mod wager_program {

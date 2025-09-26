@@ -20,6 +20,8 @@ IGNORE_DIRS = {
     "venv",
     "dist",
     "build",
+    "test-ledger",
+   
 }
 IGNORE_FILES = {
     ".DS_Store",
