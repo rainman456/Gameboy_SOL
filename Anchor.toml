@@ -18,7 +18,7 @@ url = "http://127.0.0.1:8899"
 
 
 [programs.localnet]
-wager_program = "8v8JYGZEkBJ2iRh7uZwPEeLXuP4jx35UpToPhDcRg29P"
+wager_program = "7fyv3jDQaFSbdiprauTDoXhwnpUzCJhSriYEqKN6VXN5"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

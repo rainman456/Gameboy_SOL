@@ -19,4 +19,14 @@ idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
 [dependencies]
 anchor-lang = "0.31.1"
 anchor-spl = "0.31.1"
+
 proc-macro2 = "1.0.94"
+
+
+[dev-dependencies]
+#solana-program-test = "3.0.4" # Match your Solana version; check with `solana --version`
+solana-sdk = "2.3.0"
+rand = "0.8.5"
+
+[patch.crates-io]
+solana-program = { version = "=2.3.0" }

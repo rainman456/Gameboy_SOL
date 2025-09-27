@@ -5,11 +5,15 @@ pub mod instructions;
 pub mod state;
 pub mod utils;
 
+#[cfg(test)]
+mod tests;
+
+
 use crate::instructions::*;
 
-declare_id!("8v8JYGZEkBJ2iRh7uZwPEeLXuP4jx35UpToPhDcRg29P");
+declare_id!("7fyv3jDQaFSbdiprauTDoXhwnpUzCJhSriYEqKN6VXN5");
 
-pub const TOKEN_ID: Pubkey = pubkey!("FptS4mzXxtDB8QajT65P688EgMx2BsbWSQo1r7Vxia8j");
+pub const TOKEN_ID: Pubkey = pubkey!("DTcmkrbQoYfKZgkjWau2GWBRCY5kBZZ5bDoF82ZfSsxC");
 
 #[program]
 pub mod wager_program {
