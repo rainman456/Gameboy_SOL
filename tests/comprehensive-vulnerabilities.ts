@@ -356,7 +356,7 @@ describe("Comprehensive Vulnerability Tests", () => {
     let spawnCount = 0;
     
     try {
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i <= 65535; i++) {
         await program.methods.payToSpawn(sessionId, 0)
           .accounts({
             user: players[0].publicKey,
