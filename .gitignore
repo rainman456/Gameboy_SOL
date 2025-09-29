@@ -1,7 +1,0 @@
-node_modules
-target
-package-lock.json
-yarn.lock
-test-ledger
-.anchor
-Cargo.lock
